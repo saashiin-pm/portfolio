@@ -1,0 +1,28 @@
+---
+interface Props {
+  name?: string;
+  italicFragment?: string;
+  tagline?: string;
+  intro?: string;
+}
+
+const {
+  name = "Sachin Gautam",
+  italicFragment = "shipping anyway",
+  tagline = "Building in public. Learning out loud.",
+  intro = "AI Product Manager at nSpire AI. I own Theo, an AI career co-pilot, and Vera, an AI recruiting agent. Before that I started Closet Compass — a fashion-tech AI startup that got acqui-hired by nSpire seven days before my flight back to India. It worked out. Mostly.",
+} = Astro.props;
+---
+
+<section class="hero wrap">
+  <p class="eyebrow hero-eyebrow">AI PM · Building in public</p>
+  <h1 class="hero-name">
+    {name}, <em>{italicFragment}</em>.
+  </h1>
+  <p class="hero-tagline">{tagline}</p>
+  <p class="hero-intro">{intro}</p>
+  <div class="hero-ctas">
+    <a class="btn" href="#work">View work <span class="arrow">→</span></a>
+    <a class="btn btn-ghost" href="/blog/">Read writing <span class="arrow">→</span></a>
+  </div>
+</section>

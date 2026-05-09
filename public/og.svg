@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#F4EFE6"/>
+  <g>
+    <text x="80" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+          font-size="18" letter-spacing="3" fill="#6B6760" font-weight="500">AI PM · BUILDING IN PUBLIC</text>
+
+    <text x="80" y="260" font-family="Georgia, 'Times New Roman', serif"
+          font-size="78" font-weight="400" letter-spacing="-2" fill="#14130F">Sachin Gautam,</text>
+
+    <text x="80" y="370" font-family="Georgia, 'Times New Roman', serif"
+          font-size="78" font-style="italic" font-weight="400" letter-spacing="-2" fill="#B5563B">shipping anyway.</text>
+
+    <text x="80" y="465" font-family="Georgia, 'Times New Roman', serif"
+          font-size="30" font-style="italic" fill="#6B6760">Building in public. Learning out loud.</text>
+
+    <line x1="80" y1="540" x2="180" y2="540" stroke="#14130F" stroke-width="1.5"/>
+    <text x="80" y="580" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+          font-size="16" letter-spacing="2" fill="#14130F" font-weight="500">SACHINGAUTAM.COM</text>
+  </g>
+</svg>

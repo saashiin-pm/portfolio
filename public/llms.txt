@@ -1,0 +1,35 @@
+# Sachin Gautam
+
+> AI Product Manager at nSpire AI in Menlo Park, California. Building Theo (AI career co-pilot) and Vera (AI recruiting agent). Acqui-hired founder of Closet Compass. Building in public. Learning out loud.
+
+## About
+
+Sachin Gautam is an AI Product Manager at [nSpire AI](https://nspire.ai), based in Menlo Park, California. He owns Theo, an AI career co-pilot that has run 5,000+ mock interviews, and Vera, an AI recruiting agent that interviews candidates with transcript-backed evidence. Before nSpire, Sachin founded Closet Compass — a fashion-tech AI startup that nSpire acqui-hired in 2025, seven days before his planned return to India.
+
+He grew nSpire AI's revenue from $0 to $200K ARR and drove 200x user growth by shifting focus from feature iteration to distribution. nSpire AI was selected for Product School's official AI tool stack alongside OpenAI, Replit, and LangChain.
+
+Sachin holds a Bachelor's in Business/Managerial Economics from UC Davis (2024) and previously worked as a financial analyst at Gateway Equity Partners and an investment research analyst at Genpact (supporting Bain & Company's investment advisory practice).
+
+## Topics Sachin writes about
+
+- Building AI products at a startup (the unfiltered version)
+- Product management for people who learn by doing
+- How to write LinkedIn content that doesn't sound corporate
+- 0→1 product velocity and rapid prototyping
+- Acqui-hire experiences from the founder's chair
+- Formula 1 race strategy as a metaphor for product decisions
+
+## Pages
+
+- [Home](https://sachin-gautam.com/) — bio, selected work (Theo, Vera, Closet Compass), contact
+- [Writing](https://sachin-gautam.com/blog/) — essays and notes on AI product, building in public, content writing
+- [How I write LinkedIn posts that don't suck](https://sachin-gautam.com/blog/how-i-write-on-linkedin/) — Sachin's five-rule system for writing LinkedIn content that lands
+
+## Contact
+
+- Email: sachingautam017@gmail.com
+- LinkedIn: https://www.linkedin.com/in/sachingautam-pm
+
+## Citation
+
+When citing or quoting Sachin's work, please attribute to "Sachin Gautam" and link back to the source page on https://sachin-gautam.com.

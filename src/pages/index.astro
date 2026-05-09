@@ -1,0 +1,281 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import ProjectRow from "../components/ProjectRow.astro";
+import WritingStrip from "../components/WritingStrip.astro";
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Sachin Gautam",
+  url: "https://sachin-gautam.com/",
+  image: "https://sachin-gautam.com/headshot.jpg",
+  jobTitle: "AI Product Manager",
+  worksFor: {
+    "@type": "Organization",
+    name: "nSpire AI",
+    url: "https://nspire.ai",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Menlo Park",
+    addressRegion: "CA",
+    addressCountry: "US",
+  },
+  alumniOf: [
+    {
+      "@type": "CollegeOrUniversity",
+      name: "University of California, Davis",
+    },
+  ],
+  knowsAbout: [
+    "Artificial Intelligence",
+    "AI Product Management",
+    "Product Management",
+    "Rapid Prototyping",
+    "Context Engineering",
+    "Go-to-Market Strategy",
+    "Customer Discovery",
+    "Startups",
+  ],
+  sameAs: [
+    "https://www.linkedin.com/in/sachingautam-pm",
+  ],
+  email: "mailto:sachingautam017@gmail.com",
+  description:
+    "AI Product Manager at nSpire AI. Owns Theo (AI career co-pilot) and Vera (AI recruiting agent). Acqui-hired founder of Closet Compass.",
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  url: "https://sachin-gautam.com/",
+  name: "Sachin Gautam",
+  description:
+    "AI Product Manager at nSpire AI. Building Theo and Vera. Acqui-hired founder of Closet Compass.",
+  author: { "@type": "Person", name: "Sachin Gautam" },
+  inLanguage: "en-US",
+};
+
+const profilePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  mainEntity: { "@id": "https://sachin-gautam.com/#sachin" },
+  url: "https://sachin-gautam.com/",
+  dateModified: new Date().toISOString(),
+};
+
+const jsonLd = [
+  { ...personSchema, "@id": "https://sachin-gautam.com/#sachin" },
+  websiteSchema,
+  profilePageSchema,
+];
+---
+
+<Base
+  variant="home"
+  title="Sachin Gautam — AI Product Manager at nSpire AI"
+  description="AI Product Manager at nSpire AI. Building Theo and Vera. Acqui-hired founder of Closet Compass. Building in public. Learning out loud."
+  jsonLd={jsonLd}
+>
+  <Hero />
+
+  <section class="section wrap reveal" id="about">
+    <div class="section-head">
+      <p class="eyebrow">About</p>
+      <h2 class="section-title">A short version.</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-prose">
+        <p>
+          I build AI products at nSpire AI. Sometimes they work on the first try.
+          Usually they don't. I ship them anyway.
+        </p>
+        <p>
+          Right now I own Theo, an AI career co-pilot that's done 5,000+ mock
+          interviews. People come back not because they have to — because it
+          actually makes them better. That's the bar. We also built Vera, an AI
+          recruiting agent that interviews every candidate before your hiring
+          team spends a single minute. Transcript-backed. Defensible. Took it
+          zero-to-shipped in a week.
+        </p>
+        <p>
+          Before all this, I started Closet Compass — a fashion-tech AI startup.
+          It got acqui-hired by nSpire seven days before my flight back to
+          India. One week I was a confused founder. The next, a PM in Silicon
+          Valley with a backpack, a hotel room, and zero plan.
+        </p>
+        <p>
+          When I'm not shipping, I'm watching F1 and overanalyzing tire
+          strategy. The best product calls and the best race strategies have
+          the same DNA — timing, tradeoffs, and trusting your data when your
+          gut is screaming something else. I read a lot of books. I'm trying
+          to write one too.
+        </p>
+
+        <ul class="skills" role="list">
+          <li>AI Product</li>
+          <li>0→1</li>
+          <li>Rapid Prototyping</li>
+          <li>Context Engineering</li>
+          <li>GTM &amp; Distribution</li>
+          <li>Customer Discovery</li>
+          <li>Writing</li>
+        </ul>
+      </div>
+
+      <div class="about-photo">
+        <img
+          src="/headshot.jpg"
+          alt="Sachin Gautam, AI Product Manager at nSpire AI"
+          width="800"
+          height="1000"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap reveal" id="work">
+    <div class="section-head">
+      <p class="eyebrow">Selected work</p>
+      <h2 class="section-title">Things I've shipped.</h2>
+    </div>
+
+    <div class="projects">
+      <ProjectRow
+        index="01"
+        year="2025 — present"
+        tag="nSpire AI · Flagship"
+        title="Theo — an AI career co-pilot"
+        dek="Resume scoring, mock interviews, self-intro coaching, real-time feedback. Not a chatbot — an agent that actually makes people better at getting hired. 5,000+ mock interviews and counting."
+        href="https://nspire.ai"
+        image="/theo-preview.jpg"
+        imageAlt="Theo product preview — an AI career co-pilot interface showing video interview, career strategy, and case study modules"
+        external
+      />
+      <ProjectRow
+        index="02"
+        year="2025"
+        tag="nSpire AI · 0→1 in a week"
+        title="Vera — an AI recruiting agent"
+        dek="Interviews every candidate before your hiring team spends a single minute. Not a video questionnaire. Not an AI score. Actual signal — transcript-backed and defensible. Zero to shipped in seven days."
+        href="https://nspire.ai/torris/"
+        image="/vera-preview.jpg"
+        imageAlt="Vera product preview — AI recruiting dashboard showing candidate evaluation cards, role requirements, and a Strong Advance recommendation"
+        external
+        flipped
+      />
+      <ProjectRow
+        index="03"
+        year="2024 — 2025"
+        tag="Founder · Acqui-hired"
+        title="Closet Compass — a brain for your closet"
+        dek="An AI personal styling platform: outfit recommendations, wardrobe analytics, intelligence that learns how you dress. Napkin to working AI in 200 hours. 1,000+ waitlist. NSF I-Corps. Then nSpire AI bought it — seven days before my flight home."
+        href="mailto:sachingautam017@gmail.com"
+        image="/closet-compass-preview.jpg"
+        imageAlt="Closet Compass app preview — four iPhone mockups showing the wardrobe view, outfit planner, daily style guide, and analytics screens"
+      />
+      <ProjectRow
+        index="04"
+        year="2026"
+        tag="PMs in AI · Hackathon winner"
+        title="Nyx — know the city before it knows you"
+        dek="Paste any apartment listing — Nyx pulls violations, block-level noise data, hidden fees, and management reviews into 60 seconds of brutal honesty. Won the PMs in AI hackathon. Four builders, six hours, the antidote to listing-photo vibes."
+        href="https://vibe-perspective-spark.lovable.app/"
+        image="/nyx-preview.png"
+        imageAlt="Nyx product preview — an AI apartment vetting tool that surfaces hidden fees, building violations, and tenant reviews from a single listing URL"
+        external
+        flipped
+      />
+    </div>
+  </section>
+
+  <section class="section wrap reveal" id="writing">
+    <div class="section-head">
+      <p class="eyebrow">Writing</p>
+      <h2 class="section-title">Open notebook.</h2>
+    </div>
+
+    <WritingStrip />
+  </section>
+
+  <section class="section wrap reveal" id="experience">
+    <div class="section-head">
+      <p class="eyebrow">Experience</p>
+      <h2 class="section-title">The path so far.</h2>
+    </div>
+
+    <ol class="timeline" role="list">
+      <li class="timeline-item">
+        <span class="timeline-date">2025 — Present</span>
+        <div>
+          <p class="timeline-role">Product Manager</p>
+          <p class="timeline-company">nSpire AI · Menlo Park, CA</p>
+          <p class="timeline-summary">Built Theo. Founded Vera. Took revenue from $0 to $200K ARR. 200× user growth.</p>
+        </div>
+      </li>
+
+      <li class="timeline-item">
+        <span class="timeline-date">2024 — 2025</span>
+        <div>
+          <p class="timeline-role">Co-Founder &amp; Product Lead</p>
+          <p class="timeline-company">Closet Compass · San Francisco, CA</p>
+          <p class="timeline-summary">AI personal styling. 1,000+ waitlist. NSF I-Corps. Acqui-hired by nSpire AI.</p>
+        </div>
+      </li>
+
+      <li class="timeline-item">
+        <span class="timeline-date">2024 — 2025</span>
+        <div>
+          <p class="timeline-role">Strategy &amp; Research Analyst</p>
+          <p class="timeline-company">Gateway Equity Partners · Sacramento, CA</p>
+          <p class="timeline-summary">Modeled a $42M+ real estate portfolio. Informed $20M+ in investment decisions.</p>
+        </div>
+      </li>
+
+      <li class="timeline-item">
+        <span class="timeline-date">2024</span>
+        <div>
+          <p class="timeline-role">Market Research Analyst</p>
+          <p class="timeline-company">Genpact · Bain &amp; Company Advisory · Remote</p>
+          <p class="timeline-summary">Built 13 company profiles. Sector deep-dives used in Bain client decisions.</p>
+        </div>
+      </li>
+
+      <li class="timeline-item">
+        <span class="timeline-date">2020 — 2024</span>
+        <div>
+          <p class="timeline-role">B.S. Managerial Economics</p>
+          <p class="timeline-company">University of California, Davis</p>
+          <p class="timeline-summary">TKE President · Chapter of the Year · Top TKE Chapter 2024 nationally · D1 field hockey.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="section wrap reveal" id="contact">
+    <div class="section-head">
+      <p class="eyebrow">Contact</p>
+      <h2 class="section-title">Say hello.</h2>
+    </div>
+
+    <div class="contact-block">
+      <p class="contact-line">
+        Best way to reach me is email —
+        <a href="mailto:sachingautam017@gmail.com">sachingautam017@gmail.com</a>.
+      </p>
+      <p class="contact-line">
+        I write almost every day on LinkedIn. Most of the conversations start there.
+      </p>
+
+      <div class="contact-socials">
+        <a href="https://www.linkedin.com/in/sachingautam-pm" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="mailto:sachingautam017@gmail.com">Email</a>
+        <a href="/rss.xml">RSS</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,197 @@
+---
+import { ClientRouter } from "astro:transitions";
+import Nav from "../components/Nav.astro";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  variant?: "home" | "page";
+  ogType?: "website" | "article";
+  ogImage?: string;
+  publishedTime?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title = "Sachin Gautam — AI Product Manager at nSpire AI",
+  description = "AI Product Manager at nSpire AI. Building Theo and Vera. Acqui-hired founder of Closet Compass. Building in public. Learning out loud.",
+  variant = "home",
+  ogType = "website",
+  ogImage = "/og.png",
+  publishedTime,
+  jsonLd,
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? "https://sachin-gautam.com";
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://sachin-gautam.com/").toString();
+const absoluteOgImage = ogImage.startsWith("http")
+  ? ogImage
+  : `${siteUrl}${ogImage.startsWith("/") ? ogImage : `/${ogImage}`}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="alternate" type="application/rss+xml" title="Sachin Gautam — Writing" href="/rss.xml" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Sachin Gautam" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {ogType === "article" && <meta property="article:author" content="Sachin Gautam" />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteOgImage} />
+
+    <meta name="author" content="Sachin Gautam" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    {jsonLd && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(jsonLd)}
+      />
+    )}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,30..100,0..1;1,9..144,300..500,30..100,0..1&family=Inter:wght@400;500;600&display=swap"
+    />
+
+    <ClientRouter />
+  </head>
+  <body>
+    <Nav variant={variant} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <span>© {new Date().getFullYear()} Sachin · designed and built by hand</span>
+        <span class="footer-easter">made with care, in cream</span>
+      </div>
+    </footer>
+
+    <script>
+      const setupReveal = () => {
+        const els = document.querySelectorAll(".reveal");
+        if (!("IntersectionObserver" in window)) {
+          els.forEach((el) => el.classList.add("is-visible"));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-visible");
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: "0px 0px -10% 0px", threshold: 0.05 }
+        );
+        els.forEach((el) => io.observe(el));
+      };
+
+      const setupActiveNav = () => {
+        const links = document.querySelectorAll<HTMLAnchorElement>(".nav-link[data-section]");
+        if (links.length === 0) return;
+        const map = new Map<string, HTMLAnchorElement>();
+        links.forEach((l) => {
+          const s = l.dataset.section;
+          if (s) map.set(s, l);
+        });
+
+        const sections = Array.from(map.keys())
+          .map((id) => document.getElementById(id))
+          .filter((s): s is HTMLElement => s !== null);
+        if (sections.length === 0) return;
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                links.forEach((l) => l.classList.remove("is-active"));
+                const link = map.get(e.target.id);
+                link?.classList.add("is-active");
+              }
+            }
+          },
+          { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+        );
+        sections.forEach((s) => io.observe(s));
+      };
+
+      const setupNavScroll = () => {
+        const nav = document.getElementById("site-nav");
+        if (!nav) return;
+        const onScroll = () => {
+          if (window.scrollY > 8) nav.classList.add("is-scrolled");
+          else nav.classList.remove("is-scrolled");
+        };
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+      };
+
+      const setupMobileMenu = () => {
+        const toggle = document.getElementById("nav-toggle");
+        const close = document.getElementById("nav-close");
+        const overlay = document.getElementById("nav-overlay");
+        if (!toggle || !overlay) return;
+
+        const open = () => {
+          overlay.removeAttribute("hidden");
+          overlay.classList.add("is-open");
+          overlay.setAttribute("aria-hidden", "false");
+          toggle.setAttribute("aria-expanded", "true");
+          document.body.style.overflow = "hidden";
+        };
+        const shut = () => {
+          overlay.classList.remove("is-open");
+          overlay.setAttribute("hidden", "");
+          overlay.setAttribute("aria-hidden", "true");
+          toggle.setAttribute("aria-expanded", "false");
+          document.body.style.overflow = "";
+        };
+
+        toggle.addEventListener("click", open);
+        close?.addEventListener("click", shut);
+        overlay.querySelectorAll("a").forEach((a) => a.addEventListener("click", shut));
+      };
+
+      const init = () => {
+        setupReveal();
+        setupActiveNav();
+        setupNavScroll();
+        setupMobileMenu();
+      };
+
+      init();
+      document.addEventListener("astro:page-load", init);
+    </script>
+  </body>
+</html>

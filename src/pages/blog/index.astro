@@ -1,0 +1,133 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+
+const all = await getCollection("blog", ({ data }) => !data.draft);
+const posts = all.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const fmtDate = (d: Date) =>
+  d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+
+const tags = ["PM Lessons", "Founder Journey", "Personal Brand"] as const;
+const counts: Record<string, number> = { all: posts.length };
+for (const t of tags) counts[t] = posts.filter((p) => p.data.tag === t).length;
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  url: "https://sachin-gautam.com/blog/",
+  name: "Sachin Gautam — Writing",
+  description:
+    "Notes from an AI product manager building in public. Product, AI, and the occasional half-built prototype.",
+  author: {
+    "@type": "Person",
+    name: "Sachin Gautam",
+    url: "https://sachin-gautam.com/",
+  },
+  inLanguage: "en-US",
+  blogPost: posts.map((p) => ({
+    "@type": "BlogPosting",
+    headline: p.data.title,
+    description: p.data.dek,
+    datePublished: p.data.date.toISOString(),
+    url: `https://sachin-gautam.com/blog/${p.id}/`,
+    author: { "@type": "Person", name: "Sachin Gautam" },
+  })),
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://sachin-gautam.com/" },
+    { "@type": "ListItem", position: 2, name: "Writing", item: "https://sachin-gautam.com/blog/" },
+  ],
+};
+---
+
+<Base
+  variant="page"
+  title="Writing — Sachin Gautam"
+  description="An open notebook. Notes on AI product, building in public, and the occasional half-built prototype."
+  jsonLd={[blogSchema, breadcrumbSchema]}
+>
+  <section class="section wrap">
+    <div class="section-head">
+      <p class="eyebrow">Writing</p>
+      <h1 class="section-title">Open notebook.</h1>
+    </div>
+
+    <div class="tag-filter" role="group" aria-label="Filter posts by topic">
+      <button type="button" class="tag-pill is-active" data-tag="all" aria-pressed="true">
+        All <span class="tag-count">{counts.all}</span>
+      </button>
+      {tags.map((t) => (
+        <button type="button" class="tag-pill" data-tag={t} aria-pressed="false">
+          {t} <span class="tag-count">{counts[t]}</span>
+        </button>
+      ))}
+    </div>
+
+    <ul class="writing-list" role="list">
+      {posts.length === 0 && (
+        <li class="writing-item">
+          <span class="writing-date">soon</span>
+          <div>
+            <p class="writing-title">Nothing here yet.</p>
+            <p class="writing-dek">Drop a markdown file in <code>src/content/blog/</code> and it'll show up here.</p>
+          </div>
+        </li>
+      )}
+      {posts.map((p) => (
+        <li class="writing-item" data-tag={p.data.tag ?? "untagged"}>
+          <span class="writing-date">
+            <time datetime={p.data.date.toISOString()}>{fmtDate(p.data.date)}</time>
+          </span>
+          <a href={`/blog/${p.id}/`} style="display:block" aria-label={`Read: ${p.data.title}`}>
+            <p class="writing-title">{p.data.title}</p>
+            <p class="writing-dek">{p.data.dek}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <p class="writing-empty" hidden>No posts under this topic yet.</p>
+  </section>
+
+  <script>
+    const initFilters = () => {
+      const pills = document.querySelectorAll<HTMLButtonElement>(".tag-pill");
+      const items = document.querySelectorAll<HTMLLIElement>(".writing-item[data-tag]");
+      const empty = document.querySelector<HTMLElement>(".writing-empty");
+      if (pills.length === 0 || items.length === 0) return;
+
+      pills.forEach((pill) => {
+        pill.addEventListener("click", () => {
+          const tag = pill.dataset.tag ?? "all";
+          pills.forEach((p) => {
+            const isActive = p === pill;
+            p.classList.toggle("is-active", isActive);
+            p.setAttribute("aria-pressed", isActive ? "true" : "false");
+          });
+
+          let visible = 0;
+          items.forEach((item) => {
+            const matches = tag === "all" || item.dataset.tag === tag;
+            item.classList.toggle("is-hidden", !matches);
+            if (matches) visible++;
+          });
+
+          if (empty) empty.hidden = visible !== 0;
+        });
+      });
+    };
+
+    initFilters();
+    document.addEventListener("astro:page-load", initFilters);
+  </script>
+</Base>

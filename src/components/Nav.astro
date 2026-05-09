@@ -1,0 +1,51 @@
+---
+interface Props {
+  variant?: "home" | "page";
+}
+const { variant = "home" } = Astro.props;
+---
+
+<header class="nav" id="site-nav">
+  <div class="wrap nav-inner">
+    <a href="/" class="nav-mark">Sachin</a>
+
+    <nav aria-label="Primary">
+      {variant === "home" ? (
+        <ul class="nav-links">
+          <li><a class="nav-link" data-section="work" href="#work">Work</a></li>
+          <li><a class="nav-link" data-section="writing" href="/blog/">Writing</a></li>
+          <li><a class="nav-link" data-section="experience" href="#experience">Experience</a></li>
+          <li><a class="nav-link" data-section="about" href="#about">About</a></li>
+          <li><a class="nav-link" data-section="contact" href="#contact">Contact</a></li>
+        </ul>
+      ) : (
+        <ul class="nav-links">
+          <li><a class="nav-link" href="/#work">Work</a></li>
+          <li><a class="nav-link" href="/blog/">Writing</a></li>
+          <li><a class="nav-link" href="/#experience">Experience</a></li>
+          <li><a class="nav-link" href="/#about">About</a></li>
+          <li><a class="nav-link" href="/#contact">Contact</a></li>
+        </ul>
+      )}
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span class="bars"><span></span><span></span><span></span></span>
+        Menu
+      </button>
+    </nav>
+  </div>
+
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true" hidden>
+    <div class="wrap nav-overlay-head">
+      <span class="nav-mark">Sachin</span>
+      <button class="nav-toggle" id="nav-close" aria-label="Close menu">Close</button>
+    </div>
+    <ul class="nav-overlay-links wrap" role="list">
+      <li><a href={variant === "home" ? "#work" : "/#work"}>Work</a></li>
+      <li><a href="/blog/">Writing</a></li>
+      <li><a href={variant === "home" ? "#experience" : "/#experience"}>Experience</a></li>
+      <li><a href={variant === "home" ? "#about" : "/#about"}>About</a></li>
+      <li><a href={variant === "home" ? "#contact" : "/#contact"}>Contact</a></li>
+    </ul>
+  </div>
+</header>

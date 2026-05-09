@@ -65,7 +65,11 @@ const breadcrumbSchema = {
   <article class="post wrap">
     <header class="post-header">
       <a class="back-link" href="/blog/">← All writing</a>
-      <p class="eyebrow post-eyebrow">Writing</p>
+      {post.data.tag && (
+        <a class="post-tag-chip" href={`/blog/?tag=${encodeURIComponent(post.data.tag)}`}>
+          {post.data.tag}
+        </a>
+      )}
       <h1 class="post-title">{post.data.title}</h1>
       <p class="post-dek">{post.data.dek}</p>
       <p class="post-meta">

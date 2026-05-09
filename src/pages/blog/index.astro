@@ -100,29 +100,48 @@ const breadcrumbSchema = {
   </section>
 
   <script>
-    const initFilters = () => {
+    const applyFilter = (tag: string) => {
       const pills = document.querySelectorAll<HTMLButtonElement>(".tag-pill");
       const items = document.querySelectorAll<HTMLLIElement>(".writing-item[data-tag]");
       const empty = document.querySelector<HTMLElement>(".writing-empty");
-      if (pills.length === 0 || items.length === 0) return;
+
+      pills.forEach((p) => {
+        const isActive = (p.dataset.tag ?? "all") === tag;
+        p.classList.toggle("is-active", isActive);
+        p.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+
+      let visible = 0;
+      items.forEach((item) => {
+        const matches = tag === "all" || item.dataset.tag === tag;
+        item.classList.toggle("is-hidden", !matches);
+        if (matches) visible++;
+      });
+
+      if (empty) empty.hidden = visible !== 0;
+    };
+
+    const initFilters = () => {
+      const pills = document.querySelectorAll<HTMLButtonElement>(".tag-pill");
+      if (pills.length === 0) return;
+
+      // Pre-select from ?tag= query param if present
+      const params = new URLSearchParams(window.location.search);
+      const initial = params.get("tag");
+      if (initial && Array.from(pills).some((p) => p.dataset.tag === initial)) {
+        applyFilter(initial);
+      }
 
       pills.forEach((pill) => {
         pill.addEventListener("click", () => {
           const tag = pill.dataset.tag ?? "all";
-          pills.forEach((p) => {
-            const isActive = p === pill;
-            p.classList.toggle("is-active", isActive);
-            p.setAttribute("aria-pressed", isActive ? "true" : "false");
-          });
+          applyFilter(tag);
 
-          let visible = 0;
-          items.forEach((item) => {
-            const matches = tag === "all" || item.dataset.tag === tag;
-            item.classList.toggle("is-hidden", !matches);
-            if (matches) visible++;
-          });
-
-          if (empty) empty.hidden = visible !== 0;
+          // Update URL without reload
+          const url = new URL(window.location.href);
+          if (tag === "all") url.searchParams.delete("tag");
+          else url.searchParams.set("tag", tag);
+          window.history.replaceState({}, "", url);
         });
       });
     };

@@ -601,6 +601,49 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   animation-timing-function: var(--ease);
 }
 
+/* ───── 404 ───── */
+.not-found {
+  padding-block: clamp(96px, 16vw, 180px) clamp(64px, 10vw, 120px);
+  max-width: 720px;
+}
+.not-found-title {
+  margin-top: 24px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(48px, 9vw, 112px);
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+}
+.not-found-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+.not-found-dek {
+  margin-top: 32px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(18px, 2.2vw, 24px);
+  color: var(--muted);
+  max-width: 38ch;
+  line-height: 1.4;
+}
+.not-found-ctas {
+  margin-top: 40px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.not-found-foot {
+  margin-top: 56px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.not-found-foot a {
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in oklab, var(--accent) 40%, transparent);
+}
+
 /* ───── reduced motion ───── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -715,3 +758,22 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transition: color 180ms ease, gap 220ms var(--ease);
 }
 .back-link:hover { color: var(--ink); gap: 12px; }
+
+.post-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 6px 14px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+.post-tag-chip:hover {
+  color: var(--bg);
+  background: var(--ink);
+  border-color: var(--ink);
+}

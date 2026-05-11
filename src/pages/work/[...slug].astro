@@ -1,0 +1,140 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("work", ({ data }) => !data.draft);
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const data = project.data;
+
+const caseStudyUrl = `https://sachin-gautam.com/work/${project.id}/`;
+const liveLabel = data.liveLabel ?? "Visit live";
+const ogImage = data.image.startsWith("/")
+  ? `https://sachin-gautam.com${data.image}`
+  : data.image;
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: `${data.title} — Case study`,
+  description: data.dek,
+  author: {
+    "@type": "Person",
+    name: "Sachin Gautam",
+    url: "https://sachin-gautam.com/",
+    sameAs: ["https://www.linkedin.com/in/sachingautam-pm"],
+  },
+  publisher: {
+    "@type": "Person",
+    name: "Sachin Gautam",
+    url: "https://sachin-gautam.com/",
+  },
+  url: caseStudyUrl,
+  mainEntityOfPage: { "@type": "WebPage", "@id": caseStudyUrl },
+  image: ogImage,
+  inLanguage: "en-US",
+  about: data.tag,
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://sachin-gautam.com/" },
+    { "@type": "ListItem", position: 2, name: "Work", item: "https://sachin-gautam.com/#work" },
+    { "@type": "ListItem", position: 3, name: data.title, item: caseStudyUrl },
+  ],
+};
+---
+
+<Base
+  variant="page"
+  title={`${data.title} — Case study`}
+  description={data.dek}
+  ogType="article"
+  ogImage={data.image}
+  jsonLd={[articleSchema, breadcrumbSchema]}
+>
+  <article class="case-study wrap">
+    <header class="case-header">
+      <a class="back-link" href="/#work">← All work</a>
+      <p class="eyebrow case-eyebrow">{data.tag}</p>
+      <h1 class="case-title">{data.title}</h1>
+      <p class="case-dek">{data.dek}</p>
+
+      <ul class="case-meta" role="list">
+        <li><span class="meta-label">Year</span> {data.year}</li>
+        {data.role && <li><span class="meta-label">Role</span> {data.role}</li>}
+        {data.team && <li><span class="meta-label">Team</span> {data.team}</li>}
+        {data.duration && <li><span class="meta-label">Duration</span> {data.duration}</li>}
+        {data.liveUrl && (
+          <li>
+            <a class="meta-live-link" href={data.liveUrl} target="_blank" rel="noopener noreferrer">
+              {liveLabel} <span class="arrow">↗</span>
+            </a>
+          </li>
+        )}
+      </ul>
+    </header>
+
+    <figure class="case-hero">
+      <img
+        src={data.image}
+        alt={data.imageAlt}
+        width="1600"
+        height="1200"
+        loading="eager"
+        decoding="async"
+      />
+    </figure>
+
+    <section class="case-section">
+      <p class="case-section-label">Problem</p>
+      <p class="case-section-body">{data.problem}</p>
+    </section>
+
+    <section class="case-section">
+      <p class="case-section-label">Solution</p>
+      <p class="case-section-body">{data.solution}</p>
+    </section>
+
+    <section class="case-section">
+      <p class="case-section-label">Value</p>
+      <p class="case-section-body">{data.value}</p>
+    </section>
+
+    {data.metrics.length > 0 && (
+      <section class="case-section">
+        <p class="case-section-label">Success metrics</p>
+        <ul class="metric-grid" role="list">
+          {data.metrics.map((m) => (
+            <li class="metric-card">
+              <p class="metric-value">{m.value}</p>
+              <p class="metric-label">{m.label}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <section class="case-body">
+      <Content />
+    </section>
+
+    <footer class="case-footer">
+      {data.liveUrl && (
+        <a class="btn" href={data.liveUrl} target="_blank" rel="noopener noreferrer">
+          {liveLabel} <span class="arrow">↗</span>
+        </a>
+      )}
+      <a class="btn btn-ghost" href="/#work">← All work</a>
+    </footer>
+  </article>
+</Base>

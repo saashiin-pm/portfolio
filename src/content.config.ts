@@ -12,4 +12,29 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const work = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/work" }),
+  schema: z.object({
+    title: z.string(),
+    dek: z.string(),
+    year: z.string(),
+    tag: z.string(),
+    image: z.string(),
+    imageAlt: z.string(),
+    liveUrl: z.string().optional(),
+    liveLabel: z.string().optional(),
+    role: z.string().optional(),
+    team: z.string().optional(),
+    duration: z.string().optional(),
+    problem: z.string(),
+    solution: z.string(),
+    value: z.string(),
+    metrics: z
+      .array(z.object({ label: z.string(), value: z.string() }))
+      .default([]),
+    order: z.number().default(99),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { blog, work };

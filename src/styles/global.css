@@ -601,6 +601,190 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   animation-timing-function: var(--ease);
 }
 
+/* ───── case study ───── */
+.case-study {
+  padding-block: clamp(64px, 10vw, 120px);
+}
+.case-header {
+  max-width: var(--measure-prose);
+  margin-bottom: clamp(40px, 6vw, 72px);
+}
+.case-eyebrow {
+  margin-bottom: 16px;
+}
+.case-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.022em;
+}
+.case-dek {
+  margin-top: 20px;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.4;
+  max-width: 38ch;
+}
+.case-meta {
+  margin-top: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 40px;
+  list-style: none;
+  padding: 0;
+  font-size: 14px;
+  color: var(--ink);
+}
+.case-meta .meta-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.meta-live-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2px;
+  transition: color 200ms ease, border-color 200ms ease, gap 220ms var(--ease);
+}
+.meta-live-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  gap: 10px;
+}
+
+.case-hero {
+  margin: 0 0 clamp(56px, 8vw, 96px);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  background: var(--bg-elev);
+}
+.case-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.case-section {
+  margin-bottom: clamp(48px, 7vw, 80px);
+  max-width: var(--measure-prose);
+}
+.case-section-label {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+.case-section-body {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.metric-grid {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  max-width: var(--measure-layout);
+}
+.metric-card {
+  padding: 28px 24px;
+  border-top: 1px solid var(--ink);
+}
+.metric-value {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(28px, 3.6vw, 40px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.metric-label {
+  margin-top: 12px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.case-body {
+  max-width: var(--measure-prose);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.7;
+}
+.case-body p + p { margin-top: 1.1em; }
+.case-body h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(24px, 3vw, 32px);
+  letter-spacing: -0.01em;
+  margin-top: 2em;
+  margin-bottom: 0.4em;
+}
+.case-body h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 22px;
+  margin-top: 1.6em;
+  margin-bottom: 0.4em;
+}
+.case-body a {
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in oklab, var(--accent) 40%, transparent);
+  transition: border-color 200ms ease;
+}
+.case-body a:hover { border-color: var(--accent); }
+.case-body ul, .case-body ol {
+  padding-left: 1.4em;
+  margin: 1em 0;
+}
+.case-body li + li { margin-top: 0.4em; }
+.case-body blockquote {
+  border-left: 2px solid var(--accent);
+  padding-left: 1.2em;
+  margin: 1.6em 0;
+  color: var(--muted);
+  font-style: italic;
+  font-family: var(--font-display);
+  font-size: 19px;
+}
+
+.case-footer {
+  margin-top: clamp(64px, 9vw, 96px);
+  padding-top: 32px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ───── project row: two parallel buttons ───── */
+.project-ctas {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.project-ctas .btn {
+  padding: 10px 18px;
+  font-size: 13px;
+}
+
 /* ───── 404 ───── */
 .not-found {
   padding-block: clamp(96px, 16vw, 180px) clamp(64px, 10vw, 120px);

@@ -604,9 +604,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ───── case study ───── */
 .case-study {
   padding-block: clamp(64px, 10vw, 120px);
+  max-width: 52rem;
 }
 .case-header {
-  max-width: var(--measure-prose);
+  max-width: 100%;
   margin-bottom: clamp(40px, 6vw, 72px);
 }
 .case-eyebrow {
@@ -675,7 +676,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .case-section {
   margin-bottom: clamp(48px, 7vw, 80px);
-  max-width: var(--measure-prose);
 }
 .case-section-label {
   font-size: 12px;
@@ -699,7 +699,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   gap: 24px;
   list-style: none;
   padding: 0;
-  max-width: var(--measure-layout);
 }
 .metric-card {
   padding: 28px 24px;
@@ -722,7 +721,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .case-body {
-  max-width: var(--measure-prose);
   font-family: var(--font-body);
   font-size: 17px;
   line-height: 1.7;

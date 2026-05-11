@@ -34,18 +34,18 @@ const { variant = "home" } = Astro.props;
       </button>
     </nav>
   </div>
-
-  <div class="nav-overlay" id="nav-overlay" aria-hidden="true" hidden>
-    <div class="wrap nav-overlay-head">
-      <span class="nav-mark">Sachin</span>
-      <button class="nav-toggle" id="nav-close" aria-label="Close menu">Close</button>
-    </div>
-    <ul class="nav-overlay-links wrap" role="list">
-      <li><a href={variant === "home" ? "#work" : "/#work"}>Work</a></li>
-      <li><a href="/blog/">Writing</a></li>
-      <li><a href={variant === "home" ? "#experience" : "/#experience"}>Experience</a></li>
-      <li><a href={variant === "home" ? "#about" : "/#about"}>About</a></li>
-      <li><a href={variant === "home" ? "#contact" : "/#contact"}>Contact</a></li>
-    </ul>
-  </div>
 </header>
+
+<div class="nav-overlay" id="nav-overlay" aria-hidden="true" hidden>
+  <div class="wrap nav-overlay-head">
+    <span class="nav-mark">Sachin</span>
+    <button class="nav-toggle" id="nav-close" aria-label="Close menu">Close</button>
+  </div>
+  <ul class="nav-overlay-links wrap" role="list">
+    <li><a href={variant === "home" ? "#work" : "/#work"}>Work</a></li>
+    <li><a href="/blog/">Writing</a></li>
+    <li><a href={variant === "home" ? "#experience" : "/#experience"}>Experience</a></li>
+    <li><a href={variant === "home" ? "#about" : "/#about"}>About</a></li>
+    <li><a href={variant === "home" ? "#contact" : "/#contact"}>Contact</a></li>
+  </ul>
+</div>

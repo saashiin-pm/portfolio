@@ -26,8 +26,6 @@ metrics:
   - { label: "Live prototype", value: "Shipped same day" }
 ---
 
-> ⚠️ *Drafted from the LinkedIn pitch post and the team's hackathon write-up. Sachin to review and tighten before this becomes canonical.*
-
 ## What I learned in 6 hours
 
 **The idea that wins a hackathon is never the most technically impressive.** It's the one that makes a judge go: *wait, why doesn't this exist already?* That's the whole game. Most teams pitch features and architectures. The teams that win pitch a problem the room is already feeling.
